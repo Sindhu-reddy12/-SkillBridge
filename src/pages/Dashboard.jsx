@@ -1,161 +1,365 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
-
 function Dashboard() {
-  const[studentName]=useState(localStorage.getItem("studentName")||"Student"
-  );
-  return (
-    <div className="dashboard-page">
+  const [profile, setProfile] = useState({});
+  const [readiness, setReadiness] = useState(0);
 
+  useEffect(() => {
+    const savedProfile = localStorage.getItem("studentProfile");
+    const savedReadiness = localStorage.getItem("placementReadiness");
+
+    if (savedProfile) {
+      try {
+        setProfile(JSON.parse(savedProfile));
+      } catch (error) {
+        console.error("Failed to read student profile:", error);
+      }
+    }
+
+    if (savedReadiness) {
+      setReadiness(Number(savedReadiness));
+    }
+  }, []);
+
+  // ==============================
+  // ML MODEL INPUT VALUES
+  // ==============================
+
+  const codingProfileScore =
+    profile.codingProfile !== undefined &&
+    profile.codingProfile !== ""
+      ? Number(profile.codingProfile)
+      : 0;
+
+  // ML model uses Coding_Profile on a 0-10 scale.
+  // Dashboard displays it as percentage.
+  const codingScore = codingProfileScore * 10;
+
+  const aptitudeScore =
+    profile.aptitudeScore !== undefined &&
+    profile.aptitudeScore !== ""
+      ? Number(profile.aptitudeScore)
+      : 0;
+
+  const communicationScore =
+    profile.communicationScore !== undefined &&
+    profile.communicationScore !== ""
+      ? Number(profile.communicationScore)
+      : 0;
+
+  const resumeScore =
+    profile.resumeScore !== undefined &&
+    profile.resumeScore !== ""
+      ? Number(profile.resumeScore)
+      : 0;
+
+  const skillsCount =
+    profile.skillsCount !== undefined &&
+    profile.skillsCount !== ""
+      ? Number(profile.skillsCount)
+      : 0;
+
+  const projectsCount =
+    profile.projectsCount !== undefined &&
+    profile.projectsCount !== ""
+      ? Number(profile.projectsCount)
+      : 0;
+
+  const internshipCount =
+    profile.internship !== undefined &&
+    profile.internship !== ""
+      ? Number(profile.internship)
+      : 0;
+
+  // ==============================
+  // READINESS MESSAGE
+  // ==============================
+
+  const readinessMessage =
+    readiness >= 80
+      ? "Excellent! You're well prepared for placements."
+      : readiness >= 70
+      ? "You're making good progress. Keep improving your skills."
+      : readiness >= 60
+      ? "You're on the right track. Focus on your weaker areas."
+      : "Keep working on your skills and placement preparation.";
+
+  return (
+    <div>
       <Navbar />
 
       <main className="dashboard-content">
 
-        {/* Welcome Section */}
+        {/* ================= WELCOME ================= */}
+
         <section className="welcome-section">
-          <h1>Welcome back, {studentName}!</h1>
+          <h1>
+            Welcome back, {profile.fullName || "Student"}!
+          </h1>
 
           <p>
             Here's your placement readiness overview.
           </p>
         </section>
 
-        {/* Main Readiness Score */}
+        {/* ================= ML READINESS ================= */}
+
         <section className="readiness-card">
 
           <div>
-            <p className="card-label">Placement Readiness</p>
+            <p className="card-label">
+              Placement Readiness
+            </p>
 
-            <h2>82%</h2>
+            <h2>
+              {readiness.toFixed(2)}%
+            </h2>
 
             <p>
-              You're on a great path! Keep improving your skills.
+              {readinessMessage}
             </p>
           </div>
 
           <div className="readiness-circle">
-            82%
+            {Math.round(readiness)}%
           </div>
 
         </section>
 
-        {/* Score Cards */}
+        {/* ================= SCORE CARDS ================= */}
+
         <section className="score-grid">
+
+          {/* Resume */}
 
           <div className="score-card">
             <span>📄</span>
-            <h3>Resume Score</h3>
-            <strong>78%</strong>
-            <p>Resume quality</p>
+
+            <h3>
+              Resume Score
+            </h3>
+
+            <strong>
+              {resumeScore}%
+            </strong>
+
+            <p>
+              Resume quality
+            </p>
           </div>
+
+          {/* Coding Profile */}
 
           <div className="score-card">
             <span>💻</span>
-            <h3>Coding Score</h3>
-            <strong>85%</strong>
-            <p>Coding performance</p>
+
+            <h3>
+              Coding Profile
+            </h3>
+
+            <strong>
+              {codingScore}%
+            </strong>
+
+            <p>
+              Coding profile score
+            </p>
           </div>
+
+          {/* Aptitude */}
 
           <div className="score-card">
             <span>📝</span>
-            <h3>Aptitude Score</h3>
-            <strong>74%</strong>
-            <p>Latest assessment</p>
+
+            <h3>
+              Aptitude Score
+            </h3>
+
+            <strong>
+              {aptitudeScore}%
+            </strong>
+
+            <p>
+              Latest assessment
+            </p>
           </div>
+
+          {/* Communication */}
 
           <div className="score-card">
             <span>🗣️</span>
-            <h3>Communication</h3>
-            <strong>80%</strong>
-            <p>Communication skills</p>
+
+            <h3>
+              Communication
+            </h3>
+
+            <strong>
+              {communicationScore}%
+            </strong>
+
+            <p>
+              Communication assessment
+            </p>
           </div>
 
         </section>
 
-        {/* Bottom Sections */}
+        {/* ================= ML INPUT SUMMARY ================= */}
+
         <section className="dashboard-grid">
 
-          {/* Skill Progress */}
           <div className="dashboard-card">
 
-            <h2>Skill Progress 📈</h2>
+            <h2>
+              ML Profile Inputs 🤖
+            </h2>
 
-            <div className="skill">
-              <div>
-                <span>Python</span>
-                <span>90%</span>
-              </div>
+            <div className="profile-summary">
 
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: "90%" }}
-                ></div>
-              </div>
-            </div>
+              <p>
+                <strong>CGPA:</strong>{" "}
+                {profile.cgpa || "-"}
+              </p>
 
-            <div className="skill">
-              <div>
-                <span>SQL</span>
-                <span>75%</span>
-              </div>
+              <p>
+                <strong>Semester:</strong>{" "}
+                {profile.semester || "-"}
+              </p>
 
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: "75%" }}
-                ></div>
-              </div>
-            </div>
+              <p>
+                <strong>Skills Count:</strong>{" "}
+                {skillsCount}
+              </p>
 
-            <div className="skill">
-              <div>
-                <span>React</span>
-                <span>60%</span>
-              </div>
+              <p>
+                <strong>Projects Count:</strong>{" "}
+                {projectsCount}
+              </p>
 
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: "60%" }}
-                ></div>
-              </div>
+              <p>
+                <strong>Number of Internships:</strong>{" "}
+                {internshipCount}
+              </p>
+
+              <p>
+                <strong>Coding Profile Score:</strong>{" "}
+                {codingProfileScore}/10
+              </p>
+
+              <p>
+                <strong>Aptitude Score:</strong>{" "}
+                {aptitudeScore}
+              </p>
+
+              <p>
+                <strong>Communication Score:</strong>{" "}
+                {communicationScore}
+              </p>
+
+              <p>
+                <strong>Resume Score:</strong>{" "}
+                {resumeScore}
+              </p>
+
             </div>
 
           </div>
 
-          {/* AI Recommendations */}
+          {/* ================= PROFILE INFORMATION ================= */}
+
           <div className="dashboard-card">
 
-            <h2>AI Recommendations 🤖</h2>
+            <h2>
+              Profile Information 👤
+            </h2>
 
-            <ul className="recommendations">
+            <div className="profile-summary">
 
-              <li>
-                Improve your SQL skills
-              </li>
+              <p>
+                <strong>Career Goal:</strong>{" "}
+                {profile.careerGoal || "-"}
+              </p>
 
-              <li>
-                Practice more DSA problems
-              </li>
+              <p>
+                <strong>Branch:</strong>{" "}
+                {profile.branch || "-"}
+              </p>
 
-              <li>
-                Build one strong data science project
-              </li>
+              <p>
+                <strong>College:</strong>{" "}
+                {profile.college || "-"}
+              </p>
 
-              <li>
-                Take another aptitude assessment
-              </li>
+              <p>
+                <strong>Programming Languages:</strong>{" "}
+                {profile.programmingLanguages || "-"}
+              </p>
 
-            </ul>
+              <p>
+                <strong>Skills:</strong>{" "}
+                {profile.skills || "-"}
+              </p>
+
+              <p>
+                <strong>Projects:</strong>{" "}
+                {profile.projects || "-"}
+              </p>
+
+              <p>
+                <strong>Internship Details:</strong>{" "}
+                {profile.internshipDetails || "-"}
+              </p>
+
+            </div>
 
           </div>
+
+        </section>
+
+        {/* ================= CODING PROFILE ================= */}
+
+        <section className="dashboard-card coding-profile-card">
+
+          <h2>
+            Coding Profile 💻
+          </h2>
+
+          <p>
+            <strong>Platform:</strong>{" "}
+            {profile.codingPlatform || "Not provided"}
+          </p>
+
+          <p>
+            <strong>ML Coding Score:</strong>{" "}
+            {codingProfileScore}/10
+          </p>
+
+          <p>
+            <strong>Percentage:</strong>{" "}
+            {codingScore}%
+          </p>
+
+          {profile.codingProfileLink ? (
+            <p>
+              <strong>Profile:</strong>{" "}
+              <a
+                href={profile.codingProfileLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open Coding Profile →
+              </a>
+            </p>
+          ) : (
+            <p>
+              No coding profile link provided.
+            </p>
+          )}
 
         </section>
 
       </main>
-
     </div>
   );
 }

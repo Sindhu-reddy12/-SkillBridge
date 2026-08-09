@@ -6,43 +6,114 @@ function Profile() {
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
-    email:"",
+    email: "",
     fullName: "",
     phone: "",
     college: "",
     branch: "",
     semester: "",
     cgpa: "",
+
     careerGoal: "",
     skills: "",
     programmingLanguages: "",
+    skillsCount: "",
+
     projects: "",
+    projectsCount: "",
     internship: "",
+    internshipDetails: "",
+
     codingPlatform: "",
+    codingProfileLink: "",
     codingProfile: "",
+
+    aptitudeScore: "",
+    communicationScore: "",
+    resumeScore: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setProfile({
-      ...profile,
+    setProfile((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Student Profile:", profile);
+    setLoading(true);
+    setError("");
 
-    navigate("/dashboard");
+    const mlData = {
+      CGPA: Number(profile.cgpa),
+      Semester: Number(profile.semester),
+      Skills_Count: Number(profile.skillsCount),
+      Projects_Count: Number(profile.projectsCount),
+      Internship: Number(profile.internship),
+      Coding_Profile: Number(profile.codingProfile),
+      Aptitude_Score: Number(profile.aptitudeScore),
+      Communication_Score: Number(profile.communicationScore),
+      Resume_Score: Number(profile.resumeScore),
+    };
+
+    console.log("ML INPUT:", mlData);
+
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(mlData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("ML API request failed");
+      }
+
+      const result = await response.json();
+
+      console.log("ML RESULT:", result);
+
+      localStorage.setItem(
+        "studentProfile",
+        JSON.stringify(profile)
+      );
+
+      localStorage.setItem(
+        "studentName",
+        profile.fullName
+      );
+
+      localStorage.setItem(
+        "placementReadiness",
+        result.placement_readiness
+      );
+
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Prediction error:", err);
+
+      setError(
+        "Could not connect to the ML API. Please make sure the FastAPI server is running on port 8000."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="profile-page">
-
-      {/* Navigation */}
+    <div>
       <Navbar />
 
       <div className="profile-card">
@@ -50,13 +121,26 @@ function Profile() {
         <h1>Complete Your Profile 👤</h1>
 
         <p>
-          Tell us about yourself so AI-Powered Placement Readiness PLatform can personalize your
-          placement journey.
+          Tell us about yourself so AI-Powered Placement Readiness
+          Platform can personalize your placement journey.
         </p>
+
+        {error && (
+          <p
+            style={{
+              color: "red",
+              fontWeight: "bold",
+              marginBottom: "20px",
+            }}
+          >
+            {error}
+          </p>
+        )}
 
         <form onSubmit={handleSubmit}>
 
-          {/* Personal Details */}
+          {/* ================= PERSONAL DETAILS ================= */}
+
           <h2>Personal Details</h2>
 
           <label>Full Name</label>
@@ -76,7 +160,7 @@ function Profile() {
             placeholder="Enter your email"
             value={profile.email}
             onChange={handleChange}
-           required
+            required
           />
 
           <label>Phone Number</label>
@@ -88,7 +172,8 @@ function Profile() {
             onChange={handleChange}
           />
 
-          {/* Education */}
+          {/* ================= EDUCATION ================= */}
+
           <h2>Education</h2>
 
           <label>College</label>
@@ -142,7 +227,8 @@ function Profile() {
             required
           />
 
-          {/* Career Details */}
+          {/* ================= CAREER DETAILS ================= */}
+
           <h2>Career Details</h2>
 
           <label>Career Goal</label>
@@ -153,11 +239,21 @@ function Profile() {
             required
           >
             <option value="">Select career goal</option>
-            <option value="Software Engineer">Software Engineer</option>
-            <option value="Data Analyst">Data Analyst</option>
-            <option value="Data Scientist">Data Scientist</option>
-            <option value="AI Engineer">AI Engineer</option>
-            <option value="Web Developer">Web Developer</option>
+            <option value="Software Engineer">
+              Software Engineer
+            </option>
+            <option value="Data Analyst">
+              Data Analyst
+            </option>
+            <option value="Data Scientist">
+              Data Scientist
+            </option>
+            <option value="AI Engineer">
+              AI Engineer
+            </option>
+            <option value="Web Developer">
+              Web Developer
+            </option>
           </select>
 
           <label>Skills</label>
@@ -166,6 +262,19 @@ function Profile() {
             placeholder="e.g. Python, SQL, Machine Learning"
             value={profile.skills}
             onChange={handleChange}
+          />
+
+          {/* ML FEATURE */}
+          <label>Number of Skills</label>
+          <input
+            type="number"
+            name="skillsCount"
+            placeholder="e.g. 7"
+            min="0"
+            step="1"
+            value={profile.skillsCount}
+            onChange={handleChange}
+            required
           />
 
           <label>Programming Languages</label>
@@ -177,7 +286,51 @@ function Profile() {
             onChange={handleChange}
           />
 
-          {/* Projects & Experience */}
+          {/* ================= ASSESSMENT SCORES ================= */}
+
+          <h2>Assessment Scores</h2>
+
+          <label>Aptitude Score</label>
+          <input
+            type="number"
+            name="aptitudeScore"
+            placeholder="Enter aptitude score"
+            min="0"
+            max="100"
+            step="0.01"
+            value={profile.aptitudeScore}
+            onChange={handleChange}
+            required
+          />
+
+          <label>Communication Score</label>
+          <input
+            type="number"
+            name="communicationScore"
+            placeholder="Enter communication score"
+            min="0"
+            max="100"
+            step="0.01"
+            value={profile.communicationScore}
+            onChange={handleChange}
+            required
+          />
+
+          <label>Resume Score</label>
+          <input
+            type="number"
+            name="resumeScore"
+            placeholder="Enter resume score"
+            min="0"
+            max="100"
+            step="0.01"
+            value={profile.resumeScore}
+            onChange={handleChange}
+            required
+          />
+
+          {/* ================= PROJECTS & EXPERIENCE ================= */}
+
           <h2>Projects & Experience</h2>
 
           <label>Projects</label>
@@ -188,15 +341,43 @@ function Profile() {
             onChange={handleChange}
           />
 
+          {/* ML FEATURE */}
+          <label>Number of Projects</label>
+          <input
+            type="number"
+            name="projectsCount"
+            placeholder="e.g. 3"
+            min="0"
+            step="1"
+            value={profile.projectsCount}
+            onChange={handleChange}
+            required
+          />
+
+          {/* ML FEATURE */}
+          <label>Number of Internships</label>
+          <input
+            type="number"
+            name="internship"
+            placeholder="Enter number of internships"
+            min="0"
+            step="1"
+            value={profile.internship}
+            onChange={handleChange}
+            required
+          />
+
+          {/* Profile information — not sent as ML input */}
           <label>Internship Details</label>
           <textarea
-            name="internship"
-            placeholder="Enter internship details (if any)"
-            value={profile.internship}
+            name="internshipDetails"
+            placeholder="Enter internship details"
+            value={profile.internshipDetails}
             onChange={handleChange}
           />
 
-          {/* Coding Profile */}
+          {/* ================= CODING PROFILE ================= */}
+
           <h2>Coding Profile</h2>
 
           <label>Preferred Coding Platform</label>
@@ -210,26 +391,47 @@ function Profile() {
             <option value="HackerRank">HackerRank</option>
             <option value="CodeChef">CodeChef</option>
             <option value="Codeforces">Codeforces</option>
-            <option value="GeeksforGeeks">GeeksforGeeks</option>
+            <option value="GeeksforGeeks">
+              GeeksforGeeks
+            </option>
           </select>
 
           <label>Coding Profile Link</label>
           <input
             type="url"
-            name="codingProfile"
+            name="codingProfileLink"
             placeholder="Paste your coding profile link"
-            value={profile.codingProfile}
+            value={profile.codingProfileLink}
             onChange={handleChange}
           />
 
-          <button type="submit">
-            Save Profile & Continue →
+          {/* ML FEATURE */}
+          <label>Coding Profile Score</label>
+          <input
+            type="number"
+            name="codingProfile"
+            placeholder="Enter coding profile score"
+            min="0"
+            max="10"
+            step="1"
+            value={profile.codingProfile}
+            onChange={handleChange}
+            required
+          />
+
+          {/* ================= SUBMIT ================= */}
+
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Calculating Placement Readiness..."
+              : "Save Profile & Continue →"}
           </button>
 
         </form>
-
       </div>
-
     </div>
   );
 }
