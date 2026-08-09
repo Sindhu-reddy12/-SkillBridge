@@ -1,12 +1,10 @@
 from pypdf import PdfReader
 
 
-def extract_text_from_pdf(file_path):
-    """
-    Extract text from a PDF resume.
-    """
+def extract_text_from_pdf(pdf_path):
+    """Extract text from a PDF resume."""
 
-    reader = PdfReader(file_path)
+    reader = PdfReader(pdf_path)
 
     text = ""
 
@@ -17,3 +15,13 @@ def extract_text_from_pdf(file_path):
             text += page_text + "\n"
 
     return text
+
+
+if __name__ == "__main__":
+    pdf_path = "analysis/resume/sample_resume.pdf"
+
+    text = extract_text_from_pdf(pdf_path)
+
+    print("Extracted Resume Text")
+    print("---------------------")
+    print(text)
