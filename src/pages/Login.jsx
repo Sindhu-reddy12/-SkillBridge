@@ -1,21 +1,28 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     console.log("Email:", email);
     console.log("Password:", password);
+
+    // After login, go to profile
+    navigate("/profile");
   };
 
   return (
     <div className="login-page">
+
       <div className="login-card">
 
-        <h1>Welcome to SkillBridge</h1>
+        <h1>Welcome to AI-Powered Placement Readiness PLatform</h1>
 
         <p>Build your skills. Bridge your career.</p>
 
@@ -48,10 +55,12 @@ function Login() {
         </form>
 
         <p>
-          Don't have an account? <span>Sign Up</span>
+          Don't have an account?{" "}
+          <Link to="/signup">Sign Up</Link>
         </p>
 
       </div>
+
     </div>
   );
 }

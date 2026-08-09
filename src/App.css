@@ -182,3 +182,886 @@
     border-right-color: var(--border);
   }
 }
+/* =========================
+   AI-Powered Placement Readiness PLatform DASHBOARD
+   ========================= */
+
+.dashboard {
+  min-height: 100vh;
+  background: #f7f8fc;
+  color: #1f2937;
+  text-align: left;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #6d28d9;
+}
+
+.dashboard-header button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #6d28d9;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.dashboard-header button:hover {
+  background: #5b21b6;
+}
+
+.dashboard-content {
+  padding: 50px 40px;
+}
+
+.dashboard-content h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.dashboard-content > p {
+  color: #6b7280;
+  margin-bottom: 35px;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.card p {
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 18px 20px;
+  }
+
+  .dashboard-content {
+    padding: 35px 20px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   AI-Powered Placement Readiness PLatform PROFILE
+   ========================= */
+
+.profile-page {
+  min-height: 100vh;
+  background: #f7f8fc;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.profile-card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
+.profile-card > h1 {
+  text-align: center;
+  font-size: 32px;
+  margin: 0 0 10px;
+}
+
+.profile-card > p {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 35px;
+}
+
+.profile-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-card h2 {
+  font-size: 21px;
+  color: #6d28d9;
+  margin-top: 30px;
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-card label {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  color: #374151;
+}
+
+.profile-card input,
+.profile-card select,
+.profile-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: white;
+  color: #1f2937;
+}
+
+.profile-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.profile-card input:focus,
+.profile-card select:focus,
+.profile-card textarea:focus {
+  outline: none;
+  border-color: #6d28d9;
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+}
+
+.profile-card button {
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  background: #6d28d9;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-card button:hover {
+  background: #5b21b6;
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 20px 12px;
+  }
+
+  .profile-card {
+    padding: 25px 20px;
+  }
+
+  .profile-card > h1 {
+    font-size: 26px;
+  }
+}
+/* =========================
+   AI-Powered Placement Readiness PLatform NAVBAR
+   ========================= */
+
+.navbar {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 32px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6d28d9;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-links a {
+  color: #374151;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #6d28d9;
+}
+
+.navbar-links button {
+  border: none;
+  background: #6d28d9;
+  color: white;
+  padding: 9px 18px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.navbar-links button:hover {
+  background: #5b21b6;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+  .navbar {
+    padding: 14px 16px;
+  }
+
+  .navbar-logo {
+    font-size: 20px;
+  }
+
+  .navbar-links {
+    gap: 10px;
+  }
+
+  .navbar-links a {
+    font-size: 13px;
+  }
+
+  .navbar-links button {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+}
+/* =========================
+   AI-Powered Placement Readiness PLatform DASHBOARD
+   ========================= */
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #f7f8fc;
+}
+
+.dashboard-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+/* Welcome */
+
+.welcome-section {
+  margin-bottom: 28px;
+}
+
+.welcome-section h1 {
+  font-size: 32px;
+  margin: 0 0 8px;
+  color: #111827;
+}
+
+.welcome-section p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Readiness Card */
+
+.readiness-card {
+  background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+  color: white;
+  border-radius: 18px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 25px rgba(109, 40, 217, 0.2);
+}
+
+.card-label {
+  font-size: 15px;
+  opacity: 0.85;
+  margin-bottom: 5px;
+}
+
+.readiness-card h2 {
+  color: white;
+  font-size: 48px;
+  margin: 5px 0;
+}
+
+.readiness-card p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.readiness-circle {
+  width: 110px;
+  height: 110px;
+  border: 8px solid rgba(255, 255, 255, 0.35);
+  border-top-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Score Cards */
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.score-card {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.score-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.score-card span {
+  font-size: 25px;
+}
+
+.score-card h3 {
+  margin: 12px 0 5px;
+  font-size: 16px;
+  color: #374151;
+}
+
+.score-card strong {
+  font-size: 28px;
+  color: #6d28d9;
+}
+
+.score-card p {
+  margin-top: 5px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* Bottom Grid */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dashboard-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 25px;
+}
+
+.dashboard-card h2 {
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 25px;
+}
+
+/* Skills */
+
+.skill {
+  margin-bottom: 20px;
+}
+
+.skill > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #6d28d9;
+  border-radius: 10px;
+}
+
+/* Recommendations */
+
+.recommendations {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommendations li {
+  padding: 13px 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #374151;
+}
+
+.recommendations li::before {
+  content: "✓";
+  color: #6d28d9;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+  .score-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .dashboard-content {
+    padding: 25px 15px;
+  }
+
+  .welcome-section h1 {
+    font-size: 26px;
+  }
+
+  .readiness-card {
+    padding: 22px;
+  }
+
+  .readiness-card h2 {
+    font-size: 38px;
+  }
+
+  .readiness-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 18px;
+  }
+
+  .score-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   AI-Powered Placement Readiness PLatform SIGNUP PAGE
+   ========================= */
+
+.signup-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ede9fe, #f5f3ff, #e0f2fe);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 480px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  padding: 40px;
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 50px rgba(76, 29, 149, 0.15);
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+
+  box-sizing: border-box;
+}
+
+.signup-card h1 {
+  font-size: 30px;
+  color: #4c1d95;
+  margin: 0 0 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.signup-card > p {
+  text-align: center;
+  color: #6b7280;
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+
+.signup-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signup-card label {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.signup-card input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #d8b4fe;
+  border-radius: 10px;
+
+  background: #faf5ff;
+
+  font-size: 14px;
+  color: #1f2937;
+
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.signup-card input:focus {
+  border-color: #7c3aed;
+  background: white;
+
+  box-shadow:
+    0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+.signup-card input::placeholder {
+  color: #9ca3af;
+}
+
+.signup-card button {
+  margin-top: 20px;
+
+  width: 100%;
+  padding: 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #6d28d9
+  );
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(109, 40, 217, 0.25);
+
+  transition: all 0.2s ease;
+}
+
+.signup-card button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(109, 40, 217, 0.3);
+}
+
+.signup-card button:active {
+  transform: translateY(0);
+}
+
+.signup-card a {
+  color: #6d28d9;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-card a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .signup-page {
+    padding: 25px 15px;
+  }
+
+  .signup-card {
+    padding: 28px 22px;
+    border-radius: 18px;
+  }
+
+  .signup-card h1 {
+    font-size: 25px;
+  }
+}
+/* =========================
+   AI-Powered Placement Readiness PLatform LOGIN PAGE
+   ========================= */
+
+.login-page {
+  min-height: 100vh;
+
+  background: linear-gradient(
+    135deg,
+    #ede9fe,
+    #f5f3ff,
+    #e0f2fe
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  padding: 42px;
+
+  border-radius: 24px;
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+
+  box-shadow:
+    0 20px 50px rgba(76, 29, 149, 0.15);
+
+  box-sizing: border-box;
+}
+
+/* Heading */
+
+.login-card h1 {
+  font-size: 32px;
+
+  color: #4c1d95;
+
+  margin: 0 0 10px;
+
+  text-align: center;
+
+  font-weight: 700;
+}
+
+/* Subtitle */
+
+.login-card > p {
+  text-align: center;
+
+  color: #6b7280;
+
+  font-size: 15px;
+
+  margin-bottom: 30px;
+}
+
+/* Form */
+
+.login-card form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+/* Labels */
+
+.login-card label {
+  color: #374151;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  margin-top: 8px;
+}
+
+/* Inputs */
+
+.login-card input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 14px 15px;
+
+  border: 1px solid #d8b4fe;
+
+  border-radius: 10px;
+
+  background: #faf5ff;
+
+  color: #1f2937;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.login-card input::placeholder {
+  color: #9ca3af;
+}
+
+.login-card input:focus {
+  border-color: #7c3aed;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+/* Login Button */
+
+.login-card button {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-top: 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #6d28d9
+  );
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(109, 40, 217, 0.25);
+
+  transition: all 0.2s ease;
+}
+
+.login-card button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(109, 40, 217, 0.3);
+}
+
+.login-card button:active {
+  transform: translateY(0);
+}
+
+/* Signup Link */
+
+.login-card a {
+  color: #6d28d9;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.login-card a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .login-page {
+    padding: 25px 15px;
+  }
+
+  .login-card {
+    padding: 30px 22px;
+
+    border-radius: 18px;
+  }
+
+  .login-card h1 {
+    font-size: 27px;
+  }
+}
