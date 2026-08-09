@@ -58,20 +58,39 @@ def analyze_resume(resume_text):
     sections = []
 
     section_keywords = {
-        "education": ["education", "degree", "b.tech", "b.e", "university"],
-        "experience": ["experience", "internship", "intern"],
-        "projects": ["projects", "project"],
-        "skills": ["skills", "technical skills"],
-        "certifications": ["certification", "certifications"]
+        "education": [
+            "education",
+            "degree",
+            "b.tech",
+            "b.e",
+            "university"
+        ],
+        "experience": [
+            "experience",
+            "internship",
+            "intern"
+        ],
+        "projects": [
+            "projects",
+            "project"
+        ],
+        "skills": [
+            "skills",
+            "technical skills"
+        ],
+        "certifications": [
+            "certification",
+            "certifications"
+        ]
     }
 
     for section, keywords in section_keywords.items():
         if any(keyword in text for keyword in keywords):
             sections.append(section)
 
-    # Count projects
+    # Count project occurrences
     project_matches = re.findall(
-        r"(project|projects)",
+        r"\bprojects?\b",
         text
     )
 
@@ -190,6 +209,9 @@ if __name__ == "__main__":
     print("Projects:", result["projects"])
     print("Education:", result["education"])
     print("Experience:", result["experience"])
+    print("Email:", result["email"])
+    print("Phone:", result["phone"])
+    print("Sections:", result["sections"])
     print("Suggestions:")
 
     for suggestion in result["suggestions"]:
