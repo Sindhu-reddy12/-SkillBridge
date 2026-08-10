@@ -1,4 +1,4 @@
-from gemini_service import ask_gemini
+from .gemini_service import ask_gemini
 
 
 def generate_recommendations(student_profile):

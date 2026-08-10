@@ -83,13 +83,52 @@ function Profile() {
 
       const result = await response.json();
 
-      console.log("ML RESULT:", result);
+console.log("ML RESULT:", result);
 
-      localStorage.setItem(
-        "studentProfile",
-        JSON.stringify(profile)
-      );
+// Save the complete student profile
+localStorage.setItem(
+  "studentProfile",
+  JSON.stringify(profile)
+);
 
+// Save the ML readiness score
+localStorage.setItem(
+  "placementReadiness",
+  String(result.placement_readiness)
+);
+
+// Save the exact AI profile that the FastAPI AI endpoints expect
+const aiProfile = {
+  fullName: profile.fullName,
+  email: profile.email,
+  college: profile.college,
+  branch: profile.branch,
+  semester: Number(profile.semester),
+  cgpa: Number(profile.cgpa),
+
+  careerGoal: profile.careerGoal,
+  skills: profile.skills,
+  programmingLanguages: profile.programmingLanguages,
+
+  projects: profile.projects,
+  internship: String(profile.internship),
+  codingPlatform: profile.codingPlatform,
+  codingProfile: String(profile.codingProfile),
+
+  skillsCount: Number(profile.skillsCount),
+  projectsCount: Number(profile.projectsCount),
+
+  aptitudeScore: Number(profile.aptitudeScore),
+  communicationScore: Number(profile.communicationScore),
+  resumeScore: Number(profile.resumeScore),
+
+  placementReadiness: Number(result.placement_readiness),
+};
+
+localStorage.setItem(
+  "aiStudentProfile",
+  JSON.stringify(aiProfile)
+);
       localStorage.setItem(
         "studentName",
         profile.fullName

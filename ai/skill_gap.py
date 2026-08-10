@@ -1,4 +1,4 @@
-from gemini_service import ask_gemini
+from .gemini_service import ask_gemini
 
 
 def analyze_skill_gap(student_skills, target_role):
